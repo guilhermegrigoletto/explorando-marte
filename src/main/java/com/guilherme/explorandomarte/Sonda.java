@@ -1,8 +1,7 @@
 package com.guilherme.explorandomarte;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.awt.*;
 
 @Entity
 public class Sonda {
@@ -10,7 +9,7 @@ public class Sonda {
     public Sonda() {
     }
 
-    public Sonda(int x, int y, String direcao) {
+    public Sonda(int x, int y, Direcao direcao) {
         this.x = x;
         this.y = y;
         this.direcao = direcao;
@@ -22,7 +21,9 @@ public class Sonda {
 
     private int x;
     private int y;
-    private String direcao;
+    @Enumerated(EnumType.STRING)
+    private Direcao direcao;
+    private Point coordinate = new Point(0,0);
 
     public Long getId() {
         return id;
@@ -48,11 +49,24 @@ public class Sonda {
         this.y = y;
     }
 
-    public String getDirecao() {
+    public Direcao getDirecao() {
         return direcao;
     }
 
-    public void setDirecao(String direcao) {
+    public void setDirecao(Direcao direcao) {
         this.direcao = direcao;
+    }
+
+    public Sonda execute(String comando) {
+        for (char command : comando.toCharArray()) {
+            if (command == 'R') {
+                direcao = direcao.right();
+            } if (command == 'L') {
+                direcao = direcao.left();
+            } if (command == 'M') {
+                coordinate = Malha.getCoordenadasPara(direcao, coordinate);
+            }
+        }
+        return new Sonda(coordinate.x, coordinate.y, direcao);
     }
 }

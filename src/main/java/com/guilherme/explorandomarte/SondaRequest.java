@@ -1,10 +1,13 @@
 package com.guilherme.explorandomarte;
 
+/*
+    Entrada de dados para uma sonda
+ */
 public class SondaRequest {
 
     private Integer x;
     private Integer y;
-    private String direcao;
+    private Direcao direcao;
 
     public Integer getX() {
         return x;
@@ -22,11 +25,11 @@ public class SondaRequest {
         this.y = y;
     }
 
-    public String getDirecao() {
+    public Direcao getDirecao() {
         return direcao;
     }
 
-    public void setDirecao(String direcao) {
+    public void setDirecao(Direcao direcao) {
         this.direcao = direcao;
     }
 }
