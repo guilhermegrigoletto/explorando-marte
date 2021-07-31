@@ -1,6 +1,6 @@
-package com.guilherme.explorandomarte;
+package com.guilherme.explorandomarte.entity;
 
-enum Direcao {
+public enum Direcao {
     NORTH("N", "W", "E"),
     EAST("E", "N", "S"),
     SOUTH("S", "E", "W"),
@@ -20,20 +20,16 @@ enum Direcao {
         return getDirection(this.right);
     }
 
-    private Direcao getDirection(String position) {
+    public Direcao left() {
+        return getDirection(this.left);
+    }
+
+    public static Direcao getDirection(String position) {
         for (Direcao direction : values()) {
             if (direction.value == position) {
                 return direction;
             }
         }
         return null;
-    }
-
-    public Direcao left() {
-        return getDirection(this.left);
-    }
-
-    public String value() {
-        return value;
     }
 }

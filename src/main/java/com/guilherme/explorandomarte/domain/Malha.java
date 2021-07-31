@@ -1,23 +1,17 @@
-package com.guilherme.explorandomarte;
+package com.guilherme.explorandomarte.domain;
+
+import com.guilherme.explorandomarte.entity.Direcao;
 
 import java.awt.*;
 
 public class Malha {
 
-    private static int X_MAXIMO = 5;
-    private static int Y_MAXIMO = 5;
+    private static int xMaximo = 10;
+    private static int yMaximo = 10;
     
     public static void setMalha(int x, int y) {
-        Malha.X_MAXIMO = x;
-        Malha.Y_MAXIMO = y;
-    }
-
-    public static int getX() {
-        return X_MAXIMO;
-    }
-
-    public static int getY() {
-        return Y_MAXIMO;
+        Malha.xMaximo = x;
+        Malha.yMaximo = y;
     }
 
     public static Point getCoordenadasPara(Direcao direcao, Point coordinate) {
@@ -25,18 +19,18 @@ public class Malha {
         int x = coordinate.x;
 
         if (direcao == Direcao.NORTH) {
-            y = (y + 1) % Y_MAXIMO;
+            y = (y + 1) % yMaximo;
         }
 
         if (direcao == Direcao.EAST) {
-            x = (x + 1) % X_MAXIMO;
+            x = (x + 1) % xMaximo;
         }
 
         if (direcao == Direcao.WEST) {
             if ( x > 0 ) {
                 x = x - 1;
             } else {
-                x = X_MAXIMO - 1;
+                x = xMaximo - 1;
             }
         }
 
@@ -44,7 +38,7 @@ public class Malha {
             if ( y > 0 ) {
                 y -= 1;
             } else {
-                y = Y_MAXIMO - 1;
+                y = yMaximo - 1;
             }
         }
         return new Point(x, y);

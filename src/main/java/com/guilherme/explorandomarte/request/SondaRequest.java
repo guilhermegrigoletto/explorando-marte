@@ -1,8 +1,7 @@
-package com.guilherme.explorandomarte;
+package com.guilherme.explorandomarte.request;
 
-/*
-    Entrada de dados para uma sonda
- */
+import com.guilherme.explorandomarte.entity.Direcao;
+
 public class SondaRequest {
 
     private Integer x;

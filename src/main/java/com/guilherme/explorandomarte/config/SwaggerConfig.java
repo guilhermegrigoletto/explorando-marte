@@ -1,4 +1,4 @@
-package com.guilherme.explorandomarte;
+package com.guilherme.explorandomarte.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,6 @@
-package com.guilherme.explorandomarte;
+package com.guilherme.explorandomarte.entity;
+
+import com.guilherme.explorandomarte.domain.Malha;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -12,6 +14,7 @@ public class Sonda {
     public Sonda(int x, int y, Direcao direcao) {
         this.x = x;
         this.y = y;
+        this.coordinate = new Point(x, y);
         this.direcao = direcao;
     }
 
@@ -37,25 +40,14 @@ public class Sonda {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Direcao getDirecao() {
         return direcao;
     }
 
-    public void setDirecao(Direcao direcao) {
-        this.direcao = direcao;
-    }
 
     public Sonda execute(String comando) {
         for (char command : comando.toCharArray()) {
