@@ -23,15 +23,15 @@ public class Malha {
     }
 
     public static Point getCoordenadasPara(Direcao direcao, int x, int y) {
-        if (direcao == Direcao.NORTH) {
+        if (direcao == Direcao.N) {
             y = (y + 1) % yMaximo;
         }
 
-        if (direcao == Direcao.EAST) {
+        if (direcao == Direcao.E) {
             x = (x + 1) % xMaximo;
         }
 
-        if (direcao == Direcao.WEST) {
+        if (direcao == Direcao.W) {
             if ( x > 0 ) {
                 x = x - 1;
             } else {
@@ -39,7 +39,7 @@ public class Malha {
             }
         }
 
-        if (direcao == Direcao.SOUTH) {
+        if (direcao == Direcao.S) {
             if ( y > 0 ) {
                 y -= 1;
             } else {

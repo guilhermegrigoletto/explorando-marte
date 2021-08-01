@@ -6,6 +6,7 @@ import com.guilherme.explorandomarte.repository.PosicaoSondaPassadaRepository;
 import com.guilherme.explorandomarte.repository.SondaRepository;
 import com.guilherme.explorandomarte.request.SondaRequest;
 import com.guilherme.explorandomarte.request.SondaResourceFactory;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,15 +32,17 @@ public class SondaController {
     @Autowired
     private SondaResourceFactory sondaResourceFactory;
 
+    @ApiOperation(value = "Criar uma sonda a partir de sua posicao inicial (coordenadas X, Y e direcao)")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<SondaResource> criarSonda(@RequestBody @Valid SondaRequest sondaRequest, UriComponentsBuilder builder) {
-        Sonda sonda = new Sonda(sondaRequest.getX(), sondaRequest.getY(), sondaRequest.getDirecao());
+    public ResponseEntity<?> criarSonda(@RequestBody @Valid SondaRequest sondaRequest, UriComponentsBuilder builder) {
+        Sonda sonda = new Sonda(sondaRequest.getX(), sondaRequest.getY(),sondaRequest.getDirecao());
         sondaRepository.save(sonda);
 
         SondaResource resource = sondaResourceFactory.toResource(sonda);
         return new ResponseEntity<>(resource, getLocationHeader(builder, sonda), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Executar um comando para uma sonda identificada por seu ID. O comando pode ser L, R para mover para esquerda ou direita respect. ou M para mover")
     @PutMapping("/{id}/{comando}")
     public ResponseEntity<SondaResource> executarComando(@PathVariable("id") Long id, @PathVariable("comando") String comando){
         Optional<Sonda> sondaOptional = sondaRepository.findById(id);
@@ -58,6 +61,7 @@ public class SondaController {
         }
     }
 
+    @ApiOperation(value = "Obter dados atuais de uma sonda a partir de seu ID")
     @GetMapping("/{id}")
     public ResponseEntity<SondaResource> getById(@PathVariable("id") Long id) {
         Optional<Sonda> sondaOptional = sondaRepository.findById(id);

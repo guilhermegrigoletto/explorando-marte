@@ -12,14 +12,14 @@ class SondaTest {
 
     @BeforeEach
     void setUp() {
-        sondaInicial = new Sonda(0,0, Direcao.NORTH);
+        sondaInicial = new Sonda(0,0, Direcao.N);
         Malha.setMalha(10,10);
     }
 
     @Test
     void givenL_shouldTurnLeft_thenFaceWest() {
 
-        Sonda expected = new Sonda(0,0,Direcao.WEST);
+        Sonda expected = new Sonda(0,0,Direcao.W);
 
         Sonda response = sondaInicial.executar("L");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -27,7 +27,7 @@ class SondaTest {
 
     @Test
     void giveLL_shouldTurnLeftTwice_thenFaceSouth() {
-        Sonda expected = new Sonda(0,0,Direcao.SOUTH);
+        Sonda expected = new Sonda(0,0,Direcao.S);
 
         Sonda response = sondaInicial.executar("LL");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -35,7 +35,7 @@ class SondaTest {
 
     @Test
     void givenLLL_shouldTurnLeftThrice_thenFaceEast() {
-        Sonda expected = new Sonda(0,0,Direcao.EAST);
+        Sonda expected = new Sonda(0,0,Direcao.E);
 
         Sonda response = sondaInicial.executar("LLL");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -43,7 +43,7 @@ class SondaTest {
 
     @Test
     void givenLLLL_shouldTurnCompletely_thenFaceNorth() {
-        Sonda expected = new Sonda(0,0,Direcao.NORTH);
+        Sonda expected = new Sonda(0,0,Direcao.N);
 
         Sonda response = sondaInicial.executar("LLLL");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -51,7 +51,7 @@ class SondaTest {
 
     @Test
     void givenR_shouldTurnRight_thenFaceEast() {
-        Sonda expected = new Sonda(0,0,Direcao.EAST);
+        Sonda expected = new Sonda(0,0,Direcao.E);
 
         Sonda response = sondaInicial.executar("R");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -59,7 +59,7 @@ class SondaTest {
 
     @Test
     void givenRR_shouldTurnRightTwice_thenFaceSouth() {
-        Sonda expected = new Sonda(0,0,Direcao.SOUTH);
+        Sonda expected = new Sonda(0,0,Direcao.S);
 
         Sonda response = sondaInicial.executar("RR");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -67,7 +67,7 @@ class SondaTest {
 
     @Test
     void givenRRR_shouldTurnRightThrice_thenFaceWest() {
-        Sonda expected = new Sonda(0,0,Direcao.WEST);
+        Sonda expected = new Sonda(0,0,Direcao.W);
 
         Sonda response = sondaInicial.executar("RRR");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -75,7 +75,7 @@ class SondaTest {
 
     @Test
     void givenRRRR_shouldTurnCompletely_thenFaceNorth() {
-        Sonda expected = new Sonda(0,0,Direcao.NORTH);
+        Sonda expected = new Sonda(0,0,Direcao.N);
 
         Sonda response = sondaInicial.executar("RRRR");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -83,7 +83,7 @@ class SondaTest {
 
     @Test
     void givenM_shouldMoveOneNorth() {
-        Sonda expected = new Sonda(0,1,Direcao.NORTH);
+        Sonda expected = new Sonda(0,1,Direcao.N);
 
         Sonda response = sondaInicial.executar("M");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -91,7 +91,7 @@ class SondaTest {
 
     @Test
     void givenMMM_shouldMoveThreeNorth() {
-        Sonda expected = new Sonda(0,3,Direcao.NORTH);
+        Sonda expected = new Sonda(0,3,Direcao.N);
 
         Sonda response = sondaInicial.executar("MMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -99,7 +99,7 @@ class SondaTest {
 
     @Test
     void givenMGridSize_shouldExceed_thenReturnToOrigin() {
-        Sonda expected = new Sonda(0,0,Direcao.NORTH);
+        Sonda expected = new Sonda(0,0,Direcao.N);
 
         Sonda response = sondaInicial.executar("MMMMMMMMMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -107,7 +107,7 @@ class SondaTest {
 
     @Test
     void givenRotateMGridSize_shouldReturnToOrigin_thenFaceEast() {
-        Sonda expected = new Sonda(0,0,Direcao.EAST);
+        Sonda expected = new Sonda(0,0,Direcao.E);
 
         Sonda response = sondaInicial.executar("RMMMMMMMMMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -115,7 +115,7 @@ class SondaTest {
 
     @Test
     void givenLM_shouldRotateLeftMoveOneToEdge_thenFaceWest() {
-        Sonda expected = new Sonda(9,0,Direcao.WEST);
+        Sonda expected = new Sonda(9,0,Direcao.W);
 
         Sonda response = sondaInicial.executar("LM");
         assertThat(response).isEqualToComparingFieldByField(expected);
@@ -123,7 +123,7 @@ class SondaTest {
 
     @Test
     void givenLLM_shouldRoateToSouthMoveToTheEdge_thenFaceSouth() {
-        Sonda expected = new Sonda(0,9,Direcao.SOUTH);
+        Sonda expected = new Sonda(0,9,Direcao.S);
 
         Sonda response = sondaInicial.executar("LLM");
         assertThat(response).isEqualToComparingFieldByField(expected);

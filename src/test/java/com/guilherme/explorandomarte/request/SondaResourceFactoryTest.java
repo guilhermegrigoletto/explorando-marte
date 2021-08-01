@@ -14,13 +14,13 @@ class SondaResourceFactoryTest {
 
     @Test
     void givenSondaEntity_createResourceWithSameDataAndLink() {
-        Sonda sonda = new Sonda(5, 7, Direcao.SOUTH);
+        Sonda sonda = new Sonda(5, 7, Direcao.S);
         sonda.setId(5L);
 
         SondaResource resource = factory.toResource(sonda);
         assertThat(resource.getX()).isEqualTo(5);
         assertThat(resource.getY()).isEqualTo(7);
-        assertThat(resource.getDirecao()).isEqualTo(Direcao.SOUTH);
+        assertThat(resource.getDirecao()).isEqualTo(Direcao.S);
         assertThat(resource.getLink("self").get().getHref()).isEqualTo("/api/sondas/5");
     }
 }

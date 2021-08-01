@@ -46,7 +46,7 @@ class SondaControllerTest {
 
     @BeforeEach
     void setUp() {
-        sonda = new Sonda(0,0,Direcao.NORTH);
+        sonda = new Sonda(0,0,Direcao.N);
         expectedResource = new SondaResource();
     }
 
@@ -66,7 +66,7 @@ class SondaControllerTest {
 
         expectedResource.setX(7);
         expectedResource.setY(3);
-        expectedResource.setDirecao(Direcao.SOUTH);
+        expectedResource.setDirecao(Direcao.S);
         expectedResource.add(Link.of("http://localhost:8080/api/sondas/1"));
         when(factory.toResource(sonda)).thenReturn(expectedResource);
 
@@ -79,7 +79,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("y").value(3)
         ).andExpect(
-                jsonPath("direcao").value("SOUTH")
+                jsonPath("direcao").value("S")
         ).andExpect(
                 jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
         );
@@ -90,11 +90,11 @@ class SondaControllerTest {
         SondaRequest postSondaRequest = new SondaRequest();
         postSondaRequest.setX(5);
         postSondaRequest.setY(0);
-        postSondaRequest.setDirecao(Direcao.EAST);
+        postSondaRequest.setDirecao(Direcao.E);
 
         expectedResource.setX(5);
         expectedResource.setY(0);
-        expectedResource.setDirecao(Direcao.EAST);
+        expectedResource.setDirecao(Direcao.E);
         expectedResource.add(Link.of("http://localhost:8080/api/sondas/1"));
         when(factory.toResource(any())).thenReturn(expectedResource);
 
@@ -109,7 +109,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("y").value(0)
         ).andExpect(
-                jsonPath("direcao").value("EAST")
+                jsonPath("direcao").value("E")
         ).andExpect(
                 jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
         );
@@ -133,7 +133,7 @@ class SondaControllerTest {
 
         expectedResource.setX(0);
         expectedResource.setY(3);
-        expectedResource.setDirecao(Direcao.NORTH);
+        expectedResource.setDirecao(Direcao.N);
         expectedResource.add(Link.of("http://localhost:8080/api/sondas/1"));
         when(factory.toResource(sondaArgumentCaptor.capture())).thenReturn(expectedResource);
 
@@ -146,7 +146,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("y").value(3)
         ).andExpect(
-                jsonPath("direcao").value("NORTH")
+                jsonPath("direcao").value("N")
         ).andExpect(
                 jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
         );

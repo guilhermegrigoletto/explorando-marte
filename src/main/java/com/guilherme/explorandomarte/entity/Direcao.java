@@ -1,10 +1,10 @@
 package com.guilherme.explorandomarte.entity;
 
 public enum Direcao {
-    NORTH("N", "W", "E"),
-    EAST("E", "N", "S"),
-    SOUTH("S", "E", "W"),
-    WEST("W", "S", "N");
+    N("N", "W", "E"),
+    E("E", "N", "S"),
+    S("S", "E", "W"),
+    W("W", "S", "N");
 
     private String value;
     private String left;
@@ -26,10 +26,15 @@ public enum Direcao {
 
     public static Direcao getDirection(String position) {
         for (Direcao direction : values()) {
-            if (direction.value == position) {
+            if (direction.value.equals(position)) {
                 return direction;
             }
         }
         return null;
     }
+
+    public String getValue() {
+        return this.value;
+    }
+
 }

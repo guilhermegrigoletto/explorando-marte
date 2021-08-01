@@ -29,7 +29,8 @@ public class SwaggerConfig {
     private ApiInfo metaInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "Explorando marte",
-                "Teste Elo7",
+                "Teste tecnico de desenvolvedor da Elo7 em que um conjunto de sondas e enviada para Marte e deve permitir\n" +
+                        "que elas sejam comandadas para explorar o local em uma malha retangular.",
                 "1.0",
                 "https://opensource.org/ToS",
                 new Contact("Guilherme Grigoletto", "https://www.linkedin.com/in/guilherme-grigoletto/", "guilhermegfernandes@gmail.com"),
