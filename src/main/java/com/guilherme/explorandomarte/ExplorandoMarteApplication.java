@@ -7,13 +7,15 @@ import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
 public class ExplorandoMarteApplication {
+	/*
+		Bean para resolver o bug atual entre spring-hatoas e Springfox Swagger (falha ao iniciar, requer que beans sejam anotados)
+	 */
 	@Bean
 	public LinkDiscoverers discovers() {
 
