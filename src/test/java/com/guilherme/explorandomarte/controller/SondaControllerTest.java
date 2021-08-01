@@ -81,7 +81,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("direcao").value("S")
         ).andExpect(
-                jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
+                jsonPath("_links.self.href").value("http://localhost:8080/api/sondas/1")
         );
     }
 
@@ -111,7 +111,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("direcao").value("E")
         ).andExpect(
-                jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
+                jsonPath("_links.self.href").value("http://localhost:8080/api/sondas/1")
         );
     }
 
@@ -148,7 +148,7 @@ class SondaControllerTest {
         ).andExpect(
                 jsonPath("direcao").value("N")
         ).andExpect(
-                jsonPath("links[0].href").value("http://localhost:8080/api/sondas/1")
+                jsonPath("_links.self.href").value("http://localhost:8080/api/sondas/1")
         );
 
         assertThat(sondaArgumentCaptor.getValue().getY()).isEqualTo(3);

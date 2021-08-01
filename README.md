@@ -17,9 +17,11 @@ sem mover a sonda. "M" faz com que a sonda mova-se para a frente um ponto da mal
 ##Tecnologias usadas
 + Java 11
 + Spring Boot 2.3
-+ Swagger 2.9.2
++ Swagger/OpenApi
 + JUnit 5
 + Maven
++ Docker
++ Banco de dados H2
 
 ##Iniciando a aplicacao
 Para fazer build com Maven
@@ -42,7 +44,7 @@ docker run -p 8080:8080 explorando-marte
 ##Documentacao API
 Para ver os endpoints disponiveis, inicie a aplicacao e consulte swagger por meio da URL:
 
-http://localhost:8080/swagger-ui.htm
+http://localhost:8080/swagger-ui.html
 
 
 ##Uso

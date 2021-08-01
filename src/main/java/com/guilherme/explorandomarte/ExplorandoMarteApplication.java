@@ -1,28 +1,24 @@
 package com.guilherme.explorandomarte;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.hateoas.client.LinkDiscoverer;
-import org.springframework.hateoas.client.LinkDiscoverers;
-import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
-import org.springframework.plugin.core.SimplePluginRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class ExplorandoMarteApplication {
-	/*
-		Bean para resolver o bug atual entre spring-hatoas e Springfox Swagger (falha ao iniciar, requer que beans sejam anotados)
-	 */
 	@Bean
-	public LinkDiscoverers discovers() {
-
-		List<LinkDiscoverer> plugins = new ArrayList<>();
-		plugins.add(new CollectionJsonLinkDiscoverer());
-		return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
-
+	public OpenAPI springShopOpenAPI() {
+		return new OpenAPI()
+				.info(new Info().title("Explorando marte")
+						.description("Teste tecnico de desenvolvedor da Elo7 em que um conjunto de sondas e enviada para Marte e deve permitir \n"+
+								"//                        que elas sejam comandadas para explorar o local em uma malha retangular.")
+						.version("v1.0.0")
+						.license(new License().name("Apache 2.0").url("http://springdoc.org"))
+				.contact(new Contact().email("guilhermegfernandes@gmail.com").url("https://www.linkedin.com/in/guilherme-grigoletto/")));
 	}
 
 	public static void main(String[] args) {
