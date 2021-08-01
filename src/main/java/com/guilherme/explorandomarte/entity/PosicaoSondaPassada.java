@@ -3,7 +3,7 @@ package com.guilherme.explorandomarte.entity;
 import javax.persistence.*;
 
 @Entity
-public class PosicaoExecutadaSonda {
+public class PosicaoSondaPassada {
 
     @Id
     @GeneratedValue
@@ -14,10 +14,10 @@ public class PosicaoExecutadaSonda {
     @Enumerated(EnumType.STRING)
     private Direcao direcao;
 
-    public PosicaoExecutadaSonda() {
+    public PosicaoSondaPassada() {
     }
 
-    public PosicaoExecutadaSonda(Sonda sonda) {
+    public PosicaoSondaPassada(Sonda sonda) {
         this.sondaId = sonda.getId();
         this.x = sonda.getX();
         this.y = sonda.getY();

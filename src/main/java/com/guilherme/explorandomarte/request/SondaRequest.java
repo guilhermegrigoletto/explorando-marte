@@ -2,10 +2,18 @@ package com.guilherme.explorandomarte.request;
 
 import com.guilherme.explorandomarte.entity.Direcao;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class SondaRequest {
 
+    @NotNull
+    @PositiveOrZero
     private Integer x;
+    @NotNull
+    @PositiveOrZero
     private Integer y;
+    @NotNull
     private Direcao direcao;
 
     public Integer getX() {

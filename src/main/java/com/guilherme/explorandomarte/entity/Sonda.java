@@ -8,13 +8,16 @@ import java.awt.*;
 @Entity
 public class Sonda {
 
+    private static final char COMANDO_DIREITA = 'R';
+    private static final char COMANDO_ESQUERDA = 'L';
+    private static final char COMANDO_MOVER = 'M';
+
     public Sonda() {
     }
 
     public Sonda(int x, int y, Direcao direcao) {
         this.x = x;
         this.y = y;
-        this.coordinate = new Point(x, y);
         this.direcao = direcao;
     }
 
@@ -26,7 +29,6 @@ public class Sonda {
     private int y;
     @Enumerated(EnumType.STRING)
     private Direcao direcao;
-    private Point coordinate = new Point(0,0);
 
     public Long getId() {
         return id;
@@ -49,16 +51,18 @@ public class Sonda {
     }
 
 
-    public Sonda execute(String comando) {
+    public Sonda executar(String comando) {
         for (char command : comando.toCharArray()) {
-            if (command == 'R') {
+            if (command == COMANDO_DIREITA) {
                 direcao = direcao.right();
-            } if (command == 'L') {
+            } if (command == COMANDO_ESQUERDA) {
                 direcao = direcao.left();
-            } if (command == 'M') {
-                coordinate = Malha.getCoordenadasPara(direcao, coordinate);
+            } if (command == COMANDO_MOVER) {
+                Point coordinate = Malha.getCoordenadasPara(direcao, x, y);
+                this.x = coordinate.x;
+                this.y = coordinate.y;
             }
         }
-        return new Sonda(coordinate.x, coordinate.y, direcao);
+        return new Sonda(x, y, direcao);
     }
 }

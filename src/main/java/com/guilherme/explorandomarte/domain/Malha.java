@@ -14,10 +14,15 @@ public class Malha {
         Malha.yMaximo = y;
     }
 
-    public static Point getCoordenadasPara(Direcao direcao, Point coordinate) {
-        int y = coordinate.y;
-        int x = coordinate.x;
+    public static int getXMaximo() {
+        return xMaximo;
+    }
 
+    public static int getYMaximo() {
+        return yMaximo;
+    }
+
+    public static Point getCoordenadasPara(Direcao direcao, int x, int y) {
         if (direcao == Direcao.NORTH) {
             y = (y + 1) % yMaximo;
         }

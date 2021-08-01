@@ -1,10 +1,11 @@
 package com.guilherme.explorandomarte.controller;
 
-import com.guilherme.explorandomarte.entity.PosicaoExecutadaSonda;
+import com.guilherme.explorandomarte.entity.PosicaoSondaPassada;
 import com.guilherme.explorandomarte.entity.Sonda;
-import com.guilherme.explorandomarte.repository.PosicaoExecutadaSondaRepository;
+import com.guilherme.explorandomarte.repository.PosicaoSondaPassadaRepository;
 import com.guilherme.explorandomarte.repository.SondaRepository;
 import com.guilherme.explorandomarte.request.SondaRequest;
+import com.guilherme.explorandomarte.request.SondaResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -24,48 +26,52 @@ public class SondaController {
     private SondaRepository sondaRepository;
 
     @Autowired
-    private PosicaoExecutadaSondaRepository posicaoExecutadaSondaRepository;
+    private PosicaoSondaPassadaRepository posicaoSondaPassadaRepository;
+
+    @Autowired
+    private SondaResourceFactory sondaResourceFactory;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Sonda> criarSonda(@RequestBody SondaRequest sondaRequest, UriComponentsBuilder builder) {
-        if(sondaRequest.getDirecao() != null && sondaRequest.getX() != null && sondaRequest.getY() != null) {
-            Sonda s = new Sonda(sondaRequest.getX(), sondaRequest.getY(), sondaRequest.getDirecao());
-            sondaRepository.save(s);
+    public ResponseEntity<SondaResource> criarSonda(@RequestBody @Valid SondaRequest sondaRequest, UriComponentsBuilder builder) {
+        Sonda sonda = new Sonda(sondaRequest.getX(), sondaRequest.getY(), sondaRequest.getDirecao());
+        sondaRepository.save(sonda);
 
-
-            UriComponents uriComponents = builder.path(SONDAS_ENDPOINT + "/{id}").buildAndExpand(s.getId());
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(uriComponents.toUri());
-            return new ResponseEntity<>(s, headers, HttpStatus.CREATED);
-
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        SondaResource resource = sondaResourceFactory.toResource(sonda);
+        return new ResponseEntity<>(resource, getLocationHeader(builder, sonda), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/{comando}")
-    public ResponseEntity<Sonda> movimentar(@PathVariable("id") Long id, @PathVariable("comando") String comando){
+    public ResponseEntity<SondaResource> executarComando(@PathVariable("id") Long id, @PathVariable("comando") String comando){
         Optional<Sonda> sondaOptional = sondaRepository.findById(id);
 
         if(sondaOptional.isPresent()) {
-            Sonda sondaNovaPosicao = sondaOptional.get().execute(comando);
-            sondaNovaPosicao.setId(id);
-            sondaRepository.save(sondaNovaPosicao);
+            Sonda sonda = sondaOptional.get().executar(comando);
+            sondaRepository.save(sonda);
 
-            PosicaoExecutadaSonda posicaoExecutadaSonda = new PosicaoExecutadaSonda(sondaNovaPosicao);
-            posicaoExecutadaSondaRepository.save(posicaoExecutadaSonda);
+            PosicaoSondaPassada posicaoSondaPassada = new PosicaoSondaPassada(sonda);
+            posicaoSondaPassadaRepository.save(posicaoSondaPassada);
 
-            return ResponseEntity.ok(sondaNovaPosicao);
+            SondaResource resource = sondaResourceFactory.toResource(sonda);
+            return ResponseEntity.ok(resource);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sonda> getById(@PathVariable("id") Long id) {
+    public ResponseEntity<SondaResource> getById(@PathVariable("id") Long id) {
         Optional<Sonda> sondaOptional = sondaRepository.findById(id);
-        return sondaOptional.map(sonda -> new ResponseEntity<>(sonda, HttpStatus.OK))
+        return sondaOptional.map(sonda ->  {
+            SondaResource resource = sondaResourceFactory.toResource(sonda);
+            return new ResponseEntity<>(resource, HttpStatus.OK);
+        })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    private HttpHeaders getLocationHeader(UriComponentsBuilder builder, Sonda sonda) {
+        UriComponents uriComponents = builder.path(SONDAS_ENDPOINT + "/{id}").buildAndExpand(sonda.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+        return headers;
     }
 }

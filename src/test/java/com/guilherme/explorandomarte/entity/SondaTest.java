@@ -1,5 +1,6 @@
 package com.guilherme.explorandomarte.entity;
 
+import com.guilherme.explorandomarte.domain.Malha;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,18 +8,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SondaTest {
 
-    private Sonda sonda;
+    private Sonda sondaInicial;
 
     @BeforeEach
     void setUp() {
-        sonda = new Sonda(0,0, Direcao.NORTH);
+        sondaInicial = new Sonda(0,0, Direcao.NORTH);
+        Malha.setMalha(10,10);
     }
 
     @Test
     void givenL_shouldTurnLeft_thenFaceWest() {
+
         Sonda expected = new Sonda(0,0,Direcao.WEST);
 
-        Sonda response = sonda.execute("L");
+        Sonda response = sondaInicial.executar("L");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -26,7 +29,7 @@ class SondaTest {
     void giveLL_shouldTurnLeftTwice_thenFaceSouth() {
         Sonda expected = new Sonda(0,0,Direcao.SOUTH);
 
-        Sonda response = sonda.execute("LL");
+        Sonda response = sondaInicial.executar("LL");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -34,7 +37,7 @@ class SondaTest {
     void givenLLL_shouldTurnLeftThrice_thenFaceEast() {
         Sonda expected = new Sonda(0,0,Direcao.EAST);
 
-        Sonda response = sonda.execute("LLL");
+        Sonda response = sondaInicial.executar("LLL");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -42,7 +45,7 @@ class SondaTest {
     void givenLLLL_shouldTurnCompletely_thenFaceNorth() {
         Sonda expected = new Sonda(0,0,Direcao.NORTH);
 
-        Sonda response = sonda.execute("LLLL");
+        Sonda response = sondaInicial.executar("LLLL");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -50,7 +53,7 @@ class SondaTest {
     void givenR_shouldTurnRight_thenFaceEast() {
         Sonda expected = new Sonda(0,0,Direcao.EAST);
 
-        Sonda response = sonda.execute("R");
+        Sonda response = sondaInicial.executar("R");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -58,7 +61,7 @@ class SondaTest {
     void givenRR_shouldTurnRightTwice_thenFaceSouth() {
         Sonda expected = new Sonda(0,0,Direcao.SOUTH);
 
-        Sonda response = sonda.execute("RR");
+        Sonda response = sondaInicial.executar("RR");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -66,7 +69,7 @@ class SondaTest {
     void givenRRR_shouldTurnRightThrice_thenFaceWest() {
         Sonda expected = new Sonda(0,0,Direcao.WEST);
 
-        Sonda response = sonda.execute("RRR");
+        Sonda response = sondaInicial.executar("RRR");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -74,7 +77,7 @@ class SondaTest {
     void givenRRRR_shouldTurnCompletely_thenFaceNorth() {
         Sonda expected = new Sonda(0,0,Direcao.NORTH);
 
-        Sonda response = sonda.execute("RRRR");
+        Sonda response = sondaInicial.executar("RRRR");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -82,7 +85,7 @@ class SondaTest {
     void givenM_shouldMoveOneNorth() {
         Sonda expected = new Sonda(0,1,Direcao.NORTH);
 
-        Sonda response = sonda.execute("M");
+        Sonda response = sondaInicial.executar("M");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -90,7 +93,7 @@ class SondaTest {
     void givenMMM_shouldMoveThreeNorth() {
         Sonda expected = new Sonda(0,3,Direcao.NORTH);
 
-        Sonda response = sonda.execute("MMM");
+        Sonda response = sondaInicial.executar("MMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -98,7 +101,7 @@ class SondaTest {
     void givenMGridSize_shouldExceed_thenReturnToOrigin() {
         Sonda expected = new Sonda(0,0,Direcao.NORTH);
 
-        Sonda response = sonda.execute("MMMMMMMMMM");
+        Sonda response = sondaInicial.executar("MMMMMMMMMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -106,7 +109,7 @@ class SondaTest {
     void givenRotateMGridSize_shouldReturnToOrigin_thenFaceEast() {
         Sonda expected = new Sonda(0,0,Direcao.EAST);
 
-        Sonda response = sonda.execute("RMMMMMMMMMM");
+        Sonda response = sondaInicial.executar("RMMMMMMMMMM");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -114,7 +117,7 @@ class SondaTest {
     void givenLM_shouldRotateLeftMoveOneToEdge_thenFaceWest() {
         Sonda expected = new Sonda(9,0,Direcao.WEST);
 
-        Sonda response = sonda.execute("LM");
+        Sonda response = sondaInicial.executar("LM");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 
@@ -122,7 +125,7 @@ class SondaTest {
     void givenLLM_shouldRoateToSouthMoveToTheEdge_thenFaceSouth() {
         Sonda expected = new Sonda(0,9,Direcao.SOUTH);
 
-        Sonda response = sonda.execute("LLM");
+        Sonda response = sondaInicial.executar("LLM");
         assertThat(response).isEqualToComparingFieldByField(expected);
     }
 }

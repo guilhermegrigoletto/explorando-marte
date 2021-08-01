@@ -5,10 +5,10 @@ import javax.validation.constraints.PositiveOrZero;
 
 public class MalhaRequest {
 
-    @NotNull(message = "X deve ser preenchido ao definir malha")
+    @NotNull
     @PositiveOrZero
     private Integer x;
-    @NotNull(message = "Y deve ser preenchido ao definir malha")
+    @NotNull
     @PositiveOrZero
     private Integer y;
 
@@ -21,15 +21,7 @@ public class MalhaRequest {
         return x;
     }
 
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
     public Integer getY() {
         return y;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
     }
 }

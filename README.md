@@ -5,6 +5,8 @@ Teste tecnico de desenvolvedor da Elo7 em que um conjunto de sondas e enviada pa
 que elas sejam comandadas para explorar o local em uma malha retangular.
 
 ##Regras
+As sondas sao sempre criadas na posicao x = 0, y=0 e direcao Norte(NORTH)
+
 Foi assumido uma malha (planalto) padrao de 10x10 (sendo 10 posicoes maximas na horizontal e 10 na horizontal)
 podendo ser alterado pela API /malhas.
 
