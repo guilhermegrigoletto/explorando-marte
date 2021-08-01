@@ -63,6 +63,6 @@ public class Sonda {
                 this.y = coordinate.y;
             }
         }
-        return new Sonda(x, y, direcao);
+        return this;
     }
 }
