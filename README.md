@@ -62,7 +62,7 @@ Com a entrada desejada para as coordenadas e direcao iniciais:
 ```
 Obs: as direcoes seguem o nome em ingles e sao validos portanto: N, S, W e E (respectivamente, North, South, West e East).
 
-###Movimentar uma sonda
+### Movimentar uma sonda
 ```
 PUT http://localhost:8080/api/sondas/{idSonda}/{comandoMovimento}
 ```
